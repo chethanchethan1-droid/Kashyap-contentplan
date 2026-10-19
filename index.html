@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#141311">
+<title>Aesthete Man Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f3ee;--card:#fff;--ink:#1c1b19;--muted:#6f6a62;--line:#e4ded4;--gold:#b08a4a;--chip:#efe9df;--reel:#c13584;--car:#2a7d6b;--in:#5b6cff;--out:#b06a2a;--nav:rgba(246,243,238,.92)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141311;--card:#1d1b18;--ink:#f1ece4;--muted:#a49d92;--line:#2f2c27;--chip:#29261f;--nav:rgba(20,19,17,.92)}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.5}
+.app{max-width:560px;margin:0 auto;padding:0 16px calc(90px + env(safe-area-inset-bottom))}
+header{padding:22px 0 10px}
+h1{font-family:"Playfair Display",serif;font-size:26px;margin:0;line-height:1.2}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.gold{color:var(--gold)}
+.progress{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.bar{height:8px;background:var(--chip);border-radius:99px;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--gold);width:0;transition:width .3s}
+.progress .row{display:flex;justify-content:space-between;font-size:13px}
+.section{display:none}.section.on{display:block}
+h2{font-family:"Playfair Display",serif;font-size:21px;margin:22px 0 8px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.stat .n{font-family:"Playfair Display",serif;font-size:28px;font-weight:700}
+.stat .l{font-size:12px;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+.k{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);font-weight:600}
+.pill{display:inline-block;font-size:11px;padding:3px 9px;border-radius:999px;color:#fff;font-weight:600;white-space:nowrap}
+.p-reel{background:var(--reel)}.p-car{background:var(--car)}.p-in{background:var(--in)}.p-out{background:var(--out)}
+.rhythm{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:11px}
+.rhythm div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 2px}
+.rhythm b{display:block;font-size:12px;margin-bottom:4px}
+.dot{display:block;width:10px;height:10px;border-radius:50%;margin:4px auto 0}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden}
+summary{list-style:none;padding:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary .chev{transition:transform .2s;color:var(--muted);font-size:18px}
+details[open] summary .chev{transform:rotate(90deg)}
+summary .ttl{font-weight:600}
+summary .meta{font-size:12px;color:var(--muted)}
+.tl{padding:0 14px 14px}
+.slot{position:relative;padding:0 0 14px 20px;border-left:2px solid var(--line);margin-left:6px}
+.slot:last-child{padding-bottom:0}
+.slot:before{content:"";position:absolute;left:-7px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--gold)}
+.slot .t{font-size:12px;color:var(--gold);font-weight:600}
+.slot b{display:block}
+.slot p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+ul{margin:6px 0 0;padding-left:18px;font-size:14px}li{margin:3px 0}
+.weektabs{position:sticky;top:0;z-index:5;background:var(--nav);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;gap:6px;overflow-x:auto;padding:10px 0;margin:0 -16px;padding-left:16px;padding-right:16px;scrollbar-width:none}
+.weektabs::-webkit-scrollbar{display:none}
+.weektabs button{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:999px;font:inherit;font-size:13px;font-weight:500}
+.weektabs button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.wtitle{font-family:"Playfair Display",serif;font-size:19px;margin:8px 0 2px}
+.wnote{font-size:13px;color:var(--muted);margin-bottom:10px}
+.post{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+.post.done{opacity:.5}
+.date{flex:0 0 48px;text-align:center;background:var(--chip);border-radius:10px;padding:6px 0}
+.date .dd{font-size:20px;font-weight:700;line-height:1.1}
+.date .mm{font-size:11px;text-transform:uppercase;color:var(--muted)}
+.date .wd{font-size:11px;font-weight:600}
+.body{flex:1;min-width:0}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
+.look{font-size:11px;font-weight:700;color:var(--gold);padding:3px 0}
+.body .tt{font-weight:600;font-size:15px;line-height:1.3}
+.body .ct{font-size:13px;color:var(--muted);margin-top:3px}
+.tick{flex:0 0 44px;height:44px;border-radius:50%;border:2px solid var(--line);background:transparent;color:var(--muted);font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.post.done .tick{background:var(--gold);border-color:var(--gold);color:#fff}
+nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--nav);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;justify-content:center;padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
+nav.bottom .in{display:flex;max-width:560px;width:100%}
+nav.bottom button{flex:1;border:0;background:transparent;color:var(--muted);font:inherit;font-size:12px;font-weight:600;padding:8px 0;border-radius:12px}
+nav.bottom button span{display:block;font-size:20px;line-height:1.2}
+nav.bottom button.on{color:var(--ink);background:var(--chip)}
+.stream{display:flex;gap:12px;align-items:flex-start}
+.stream .ic{flex:0 0 38px;height:38px;border-radius:10px;background:var(--chip);display:flex;align-items:center;justify-content:center;font-size:18px}
+.stream b{display:block;font-size:15px}
+.stream p{margin:3px 0 0;font-size:13px;color:var(--muted)}
+.when{display:inline-block;font-size:11px;font-weight:600;color:var(--gold);margin-top:4px}
+.seg{display:flex;background:var(--chip);border-radius:12px;padding:4px;gap:4px;margin-bottom:10px}
+.seg button{flex:1;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:600;padding:9px 0;border-radius:9px}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.hero{background:var(--ink);color:var(--bg);border-radius:16px;padding:16px;margin-bottom:10px}
+.hero .l{font-size:12px;opacity:.75}
+.hero .v{font-family:"Playfair Display",serif;font-size:30px;font-weight:700;line-height:1.15}
+.hero .s{font-size:13px;opacity:.85;margin-top:4px}
+.mrow{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.mrow:last-child{border-bottom:0}
+.mrow .m{font-weight:700;font-size:13px;text-align:center;background:var(--chip);border-radius:8px;padding:6px 0}
+.mrow .f{font-size:12px;color:var(--muted)}
+.mrow .w{font-size:13px}
+.mrow .r{font-weight:700;font-size:14px;text-align:right;white-space:nowrap}
+.rate{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.rate:last-child{border-bottom:0}
+.rate span:last-child{font-weight:600;text-align:right}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+.note a{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <h1>Kashyap <span class="gold">|</span> Content Plan</h1>
+  <div class="sub">@aesthete.man · 26 Oct – 22 Nov 2026</div>
+  <div class="progress"><div class="row"><span>Posted</span><b id="pc">0 / 0</b></div><div class="bar"><i id="pb"></i></div></div>
+</header>
+
+<!-- PLAN -->
+<section class="section on" id="s-plan">
+  <h2>This month</h2>
+  <div class="stats">
+    <div class="stat"><div class="n">2</div><div class="l">Shoots · 1 in-house, 1 outdoor</div></div>
+    <div class="stat"><div class="n">12</div><div class="l">Reels · Mon, Wed, Fri</div></div>
+    <div class="stat"><div class="n">10</div><div class="l">Carousels · Tue & Sat</div></div>
+    <div class="stat"><div class="n">6+6</div><div class="l">In-house + outdoor Reels</div></div>
+  </div>
+
+  <h2>Weekly rhythm</h2>
+  <div class="rhythm">
+    <div><b>Mon</b>Reel<i class="dot" style="background:var(--reel)"></i></div>
+    <div><b>Tue</b>Carousel<i class="dot" style="background:var(--car)"></i></div>
+    <div><b>Wed</b>Reel<i class="dot" style="background:var(--reel)"></i></div>
+    <div><b>Thu</b>—</div>
+    <div><b>Fri</b>Reel<i class="dot" style="background:var(--reel)"></i></div>
+    <div><b>Sat</b>Carousel<i class="dot" style="background:var(--car)"></i></div>
+    <div><b>Sun</b>—</div>
+  </div>
+  <div class="card" style="margin-top:10px;font-size:14px">Post Reels at <b>7–8 PM IST</b>. Cross-post every Reel as a <b>YouTube Short</b>.</div>
+
+  <h2>Carousel format</h2>
+  <div class="card"><ul style="margin:0">
+    <li>Slide 1: best full-length shot + short title</li>
+    <li>Slides 2–6: shoes, watch, fabric, fit details</li>
+    <li>Last slide: outfit breakdown or "Save this look"</li></ul></div>
+
+  <h2>Next month</h2>
+  <div class="card"><ul style="margin:0"><li>In-house shoot: <b>Thu 19 Nov</b></li><li>Outdoor shoot: <b>Sat 21 Nov</b></li><li>Covers posts 23 Nov – 20 Dec</li></ul></div>
+</section>
+
+<!-- SHOOTS -->
+<section class="section" id="s-shoots">
+  <h2>Shoot days</h2>
+  <details open>
+    <summary><div><span class="pill p-in">In-house</span><div class="ttl" style="margin-top:6px">Thu 22 Oct · Core8Media</div><div class="meta">3 looks → 6 Reels + 5 carousels · ~5 hrs</div></div><span class="chev">›</span></summary>
+    <div class="tl">
+      <div class="slot"><div class="t">10:00 – 10:45</div><b>Setup</b><p>Backdrop, mirror, key + ring light, lapel mic, vertical tripod.</p></div>
+      <div class="slot"><div class="t">10:45 – 11:45 · A1 + M1</div><b>GRWM: Classic café date</b><p>Black shirt, striped pleated trousers, chunky loafers, gold watch. Then menswear: "3 ways to style a black shirt".</p></div>
+      <div class="slot"><div class="t">12:00 – 1:00 · A2 + M2</div><b>GRWM: Festive (Diwali)</b><p>Ivory kurta, churidar, mojaris. Then menswear: "Diwali outfit ideas (3 budgets)".</p></div>
+      <div class="slot"><div class="t">1:45 – 2:45 · A3 + M3</div><b>GRWM: Weekend smart casual</b><p>Beige overshirt, black jeans, Chelsea boots. Then menswear: "Old money style rules".</p></div>
+      <div class="slot"><div class="t">2:45 – 3:30</div><b>Stills + flat-lays</b><p>15–20 portraits per look and flat-lays for poster carousels.</p></div>
+    </div>
+  </details>
+  <details open>
+    <summary><div><span class="pill p-out">Outdoor</span><div class="ttl" style="margin-top:6px">Sat 24 Oct · 2 cafés + 1 spot</div><div class="meta">4 looks → 6 Reels + 5 carousels · full day</div></div><span class="chev">›</span></summary>
+    <div class="tl">
+      <div class="slot"><div class="t">8:00 – 10:30 · O1 · Café 1</div><b>Slow morning in linen</b><p>White linen shirt, beige trousers, tan loafers. Coffee pour, menu, details.</p></div>
+      <div class="slot"><div class="t">11:00 – 1:00 · O2 + O4 · Outdoor spot</div><b>Denim done right · All black, open road</b><p>Denim shirt, cream chinos, white sneakers. Then black tee and trousers, sunglasses, with the Super Meteor 650.</p></div>
+      <div class="slot"><div class="t">3:30 – 5:30 · O3 · Café 2</div><b>Festive coffee</b><p>Nehru jacket over a white shirt, beige trousers, loafers. Golden-hour light.</p></div>
+      <div class="slot"><div class="t">All day</div><b>Bonus footage</b><p>Walk-ins, look transitions and café B-roll for 2 extra Reels.</p></div>
+    </div>
+  </details>
+  <details>
+    <summary><div class="ttl">Outdoor shoot checklist</div><span class="chev">›</span></summary>
+    <div class="tl"><ul style="margin:0">
+      <li>Call both cafés: permission + corner table</li>
+      <li>Pick a shaded spot near Café 1</li>
+      <li>Pack 4 looks, shoes, watch, sunglasses</li>
+      <li>Lint roller, mirror, power bank, spare battery</li></ul></div>
+  </details>
+</section>
+
+<!-- EARN -->
+<section class="section" id="s-earn">
+  <h2>6-month earnings outlook</h2>
+  <p class="sub" style="margin-top:-2px">If he posts 3 Reels a week without gaps, Nov 2026 – Apr 2027. Estimates, not guarantees.</p>
+  <div class="seg" id="scen">
+    <button data-s="0">Slow</button><button data-s="1" class="on">Realistic</button><button data-s="2">Strong</button>
+  </div>
+  <div class="hero"><div class="l">Income by month 6</div><div class="v" id="hv"></div><div class="s" id="hs"></div></div>
+  <div class="card"><div class="k">Month by month</div><div id="months"></div>
+    <div class="note">Followers = Instagram. Income = paid brand Reels + affiliate commissions. Free products, café barters and Core8Media client work come on top.</div></div>
+
+  <h2>Income streams</h2>
+  <div class="card stream"><div class="ic">☕</div><div><b>Café & brand barters</b><p>Free café visits, outfits and shoes in exchange for Reels. These also become free costumes for shoots, and they convert to paid deals later.</p><span class="when">From month 2</span></div></div>
+  <div class="card stream"><div class="ic">🔗</div><div><b>Affiliate links</b><p>"Shop my look" links via Amazon Associates, or Myntra and Ajio through Wishlink or EarnKaro. Fits the menswear suggestion Reels.</p><span class="when">From month 2</span></div></div>
+  <div class="card stream"><div class="ic">🤝</div><div><b>Paid brand collaborations</b><p>Menswear, grooming, watches, sunglasses, footwear, riding gear, cafés and restaurants. Brands look at engagement more than followers.</p><span class="when">From month 3–4</span></div></div>
+  <div class="card stream"><div class="ic">🏢</div><div><b>Through Core8Media</b><p>The face or model for the agency's hospitality, fashion and fitness clients. Paid work from day one, and an add-on for client social media plans.</p><span class="when">From month 1</span></div></div>
+  <div class="card stream"><div class="ic">▶️</div><div><b>YouTube monetisation</b><p>Needs 1,000 subscribers plus 4,000 watch hours or 10M Shorts views in 90 days. With Shorts only, expect this after month 6. Check current rules in YouTube Studio.</p><span class="when">Month 6–12</span></div></div>
+  <div class="card stream"><div class="ic">✨</div><div><b>Long term</b><p>Modelling, ad shoots, event hosting, paid styling sessions, and later his own product under "The Aesthete" name.</p><span class="when">Year 1+</span></div></div>
+
+  <h2>India rate benchmarks (2026)</h2>
+  <div class="card">
+    <div class="rate"><span>Nano (1K–10K) · per Reel</span><span>₹2,000 – 8,000</span></div>
+    <div class="rate"><span>Micro (10K–100K) · per Reel</span><span>₹8,000 – 80,000</span></div>
+    <div class="rate"><span>Micro · typical Reel</span><span>₹5,000 – 25,000</span></div>
+    <div class="rate"><span>Story set (3–5) · micro</span><span>₹1,500 – 8,000</span></div>
+    <div class="rate"><span>Reel + Story + post combo</span><span>1.6 – 2× a Reel</span></div>
+    <div class="note">Sources: <a href="https://upgrowth.in/influencer-marketing-pricing-india-2026/">Upgrowth</a>, <a href="https://www.dazzlerr.com/influencer-rates-india-2026/">Dazzlerr</a>, <a href="https://bosswallah.com/blog/brand-collaborations/micro-influencer-rates-in-india-what-to-actually-charge-in-2026/">Boss Wallah</a>.</div>
+  </div>
+
+  <h2>What makes "realistic" happen</h2>
+  <div class="card"><ul style="margin:0">
+    <li>3 Reels every week — no gaps</li>
+    <li>Engagement above 4%: reply to every comment in the first hour</li>
+    <li>Tag cafés and brands in every post</li>
+    <li>Trending audio + a strong first 2 seconds</li>
+    <li>A one-page media kit ready by month 3</li></ul></div>
+</section>
+
+<!-- CALENDAR -->
+<section class="section" id="s-cal">
+  <div class="weektabs" id="tabs"></div>
+  <div id="week"></div>
+</section>
+</div>
+
+<nav class="bottom"><div class="in">
+  <button class="on" data-s="plan"><span>◎</span>Plan</button>
+  <button data-s="shoots"><span>◉</span>Shoots</button>
+  <button data-s="cal"><span>▦</span>Calendar</button>
+  <button data-s="earn"><span>₹</span>Earn</button>
+</div></nav>
+
+<script>
+const weeks=[
+{tab:"Pre-launch",t:"19 – 25 Oct · Pre-launch",note:"Shoot week. Post 2 carousels from existing photos.",posts:[
+["2026-10-21","Carousel","out","—","Seersucker stripes & a strong espresso","Existing café photos."],
+["2026-10-23","Carousel","out","—","Overshirt, boots & the open road","Existing overshirt and bike photos."]]},
+{tab:"Week 1",t:"26 Oct – 1 Nov · Classic Basics",posts:[
+["2026-10-26","Reel","in","A1","GRWM: a classic café-date look","Hair, beard, shirt tuck, watch, final walk."],
+["2026-10-27","Carousel","in","A1","Look A1 — outfit breakdown","Final-look stills + details."],
+["2026-10-28","Reel","out","O1","A slow morning in linen","Café 1: entry, coffee pour, sitting."],
+["2026-10-30","Reel","in","M1","3 ways to style a black shirt","Formal, smart casual, all-black."],
+["2026-10-31","Carousel","out","O1","Morning linen look","Café 1 portrait stills."]]},
+{tab:"Week 2",t:"2 – 8 Nov · Diwali Edition",posts:[
+["2026-11-02","Reel","in","M2","Diwali outfit ideas (3 budgets)","Budget, mid-range, premium try-ons."],
+["2026-11-03","Carousel","in","M2","Diwali outfit guide","Poster slides with tips."],
+["2026-11-04","Reel","in","A2","GRWM: festive grooming + kurta","Beard, hair, kurta, accessories."],
+["2026-11-06","Reel","out","O3","Festive coffee in a Nehru jacket","Café 2 with warm festive grade."],
+["2026-11-07","Carousel","in","A2","The festive classic","Kurta look stills."],
+["2026-11-08","Carousel","out","O3","Happy Diwali","Nehru jacket stills + greeting slide."]]},
+{tab:"Week 3",t:"9 – 15 Nov · Smart Casual",posts:[
+["2026-11-09","Reel","out","O2","Denim on denim, done right","Walk, details, fit."],
+["2026-11-10","Carousel","out","O2","The denim look","Outdoor spot stills."],
+["2026-11-11","Reel","in","A3","GRWM: my go-to weekend look","Grooming, overshirt, boots."],
+["2026-11-13","Reel","out","O4","All black, open road","Helmet off, walk, sunglasses, ride-off."],
+["2026-11-14","Carousel","in","A3","Overshirt done right","Weekend look stills."]]},
+{tab:"Week 4",t:"16 – 22 Nov · Old Money Edit",posts:[
+["2026-11-16","Reel","out","O1+O3","Café hopping: 2 cafés, 1 day","Combined B-roll from both cafés."],
+["2026-11-17","Carousel","out","O4","All black with the Super Meteor","Bike look stills."],
+["2026-11-18","Reel","in","M3","Old money style rules","5 rules with try-ons."],
+["2026-11-20","Reel","out","All","4 looks, 1 day","Transition Reel through all outdoor looks."],
+["2026-11-21","Carousel","in","M3","Old money rules","One rule per slide."]]}
+];
+
+let done={},cur=1;
+try{done=JSON.parse(localStorage.getItem("am3_done")||"{}")}catch(e){done={}}
+try{const s=localStorage.getItem("am_mob_week");if(s!==null)cur=+s}catch(e){}
+const all=weeks.flatMap(w=>w.posts);
+
+function progress(){const n=all.filter(p=>done[p[0]+p[1]]).length;
+  document.getElementById("pc").textContent=n+" / "+all.length;
+  document.getElementById("pb").style.width=(n/all.length*100)+"%";}
+
+function renderTabs(){document.getElementById("tabs").innerHTML=weeks.map((w,i)=>`<button class="${i===cur?"on":""}" data-w="${i}">${w.tab}</button>`).join("");
+  document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>{cur=+b.dataset.w;try{localStorage.setItem("am_mob_week",cur)}catch(e){}renderTabs();renderWeek();window.scrollTo({top:document.getElementById("s-cal").offsetTop-10,behavior:"smooth"})});}
+
+function renderWeek(){const w=weeks[cur];
+  document.getElementById("week").innerHTML=`<div class="wtitle">${w.t}</div>${w.note?`<div class="wnote">${w.note}</div>`:"<div class='wnote'></div>"}`+
+  w.posts.map(p=>{const d=new Date(p[0]+"T00:00:00"),k=p[0]+p[1];
+    return `<div class="post ${done[k]?"done":""}">
+      <div class="date"><div class="wd">${d.toLocaleDateString("en-IN",{weekday:"short"})}</div><div class="dd">${d.getDate()}</div><div class="mm">${d.toLocaleDateString("en-IN",{month:"short"})}</div></div>
+      <div class="body"><div class="tags"><span class="pill ${p[1]==="Reel"?"p-reel":"p-car"}">${p[1]}</span><span class="pill ${p[2]==="in"?"p-in":"p-out"}">${p[2]==="in"?"In-house":"Outdoor"}</span><span class="look">${p[3]}</span></div>
+      <div class="tt">${p[4]}</div><div class="ct">${p[5]}</div></div>
+      <button class="tick" data-k="${k}" aria-label="Mark posted">✓</button></div>`}).join("");
+  document.querySelectorAll(".tick").forEach(b=>b.onclick=()=>{const k=b.dataset.k;done[k]=!done[k];try{localStorage.setItem("am3_done",JSON.stringify(done))}catch(e){}renderWeek();progress()});}
+
+document.querySelectorAll("nav.bottom button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("nav.bottom button").forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll(".section").forEach(s=>s.classList.toggle("on",s.id==="s-"+b.dataset.s));
+  window.scrollTo({top:0});});
+
+const scen=[
+ {v:"₹3K – 8K / month",s:"3K – 5K followers · mostly barters + small affiliate income",m:[
+  ["Nov","200 – 500","Building the grid","₹0"],["Dec","500 – 1K","Café barters","₹0 – 500"],
+  ["Jan","1K – 2K","Barters + affiliate","₹500 – 1.5K"],["Feb","2K – 3K","Affiliate + products","₹1K – 3K"],
+  ["Mar","2.5K – 4K","First paid Reel","₹2K – 5K"],["Apr","3K – 5K","0–1 paid + affiliate","₹3K – 8K"]],t:"₹7K – 18K total"},
+ {v:"₹20K – 45K / month",s:"10K – 15K followers · micro creator by month 6",m:[
+  ["Nov","300 – 800","Building the grid","₹0"],["Dec","1K – 2K","Café barters, affiliate","₹500 – 1.5K"],
+  ["Jan","2.5K – 4K","First paid Reel","₹3K – 7K"],["Feb","4K – 7K","1–2 paid Reels","₹5K – 16K"],
+  ["Mar","7K – 10K","2 paid Reels","₹13K – 22K"],["Apr","10K – 15K","2–3 paid Reels","₹20K – 45K"]],t:"₹40K – 1L total"},
+ {v:"₹60K – 1.2L / month",s:"25K – 40K followers · if 1–2 Reels go viral",m:[
+  ["Nov","500 – 2K","Early traction","₹0 – 1K"],["Dec","3K – 6K","Barters + affiliate","₹2K – 6K"],
+  ["Jan","6K – 10K","1–2 paid Reels","₹8K – 20K"],["Feb","10K – 18K","2–3 paid Reels","₹20K – 45K"],
+  ["Mar","18K – 28K","3–4 paid Reels","₹40K – 80K"],["Apr","25K – 40K","4–5 paid Reels","₹60K – 1.2L"]],t:"₹1.3L – 2.7L total"}
+];
+let sc=1;
+function renderScen(){const x=scen[sc];
+  document.getElementById("hv").textContent=x.v;
+  document.getElementById("hs").textContent=x.s+" · 6 months: "+x.t;
+  document.getElementById("months").innerHTML=x.m.map(r=>`<div class="mrow"><div class="m">${r[0]}</div><div><div class="w">${r[2]}</div><div class="f">${r[1]} followers</div></div><div class="r">${r[3]}</div></div>`).join("");
+  document.querySelectorAll("#scen button").forEach(b=>b.classList.toggle("on",+b.dataset.s===sc));}
+document.querySelectorAll("#scen button").forEach(b=>b.onclick=()=>{sc=+b.dataset.s;renderScen()});
+renderScen();
+renderTabs();renderWeek();progress();
+</script>
+</body>
+</html>
